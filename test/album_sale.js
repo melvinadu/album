@@ -21,4 +21,47 @@ contract("AlbumSale", function (accounts) {
     assert.isTrue(charity == 0x0206dDB656Da973230Bf332d7D34fEafc5A45E3c)
   });
 
+  it("should split 80% of the payment to the owner", async function () {
+    const contract = await AlbumSale.deployed();
+    
+    const startBalance = web3.utils.toBN(await web3.eth.getBalance(accounts[1]))
+
+    const purchase = await contract.buy.sendTransaction({
+      from: accounts[0],
+      value: web3.utils.toWei("0.01", "ether")
+    })
+
+    const commission = web3.utils.toBN(web3.utils.toWei("0.008", "ether"))
+
+    const endBalance = web3.utils.toBN(await web3.eth.getBalance(accounts[1]))
+
+    // console.log(startBalance);
+    // console.log(endBalance);
+    assert.equal(
+      startBalance.add(commission).toString(), 
+      endBalance.toString()
+    )
+  });
+
+  it("should split 20% of the payment to the charity", async function () {
+    const contract = await AlbumSale.deployed();
+    
+    const startBalance = web3.utils.toBN(await web3.eth.getBalance(accounts[2]))
+
+    const purchase = await contract.buy.sendTransaction({
+      from: accounts[5],
+      value: web3.utils.toWei("0.01", "ether")
+    })
+
+    const commission = web3.utils.toBN(web3.utils.toWei("0.002", "ether"))
+
+    const endBalance = web3.utils.toBN(await web3.eth.getBalance(accounts[2]))
+
+    // console.log(startBalance);
+    // console.log(endBalance);
+    assert.equal(
+      startBalance.add(commission).toString(), 
+      endBalance.toString()
+    )
+  });
 });
