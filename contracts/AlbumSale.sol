@@ -25,12 +25,12 @@ contract AlbumSale {
     charity = 0x0206dDB656Da973230Bf332d7D34fEafc5A45E3c;
   }
 
-  function canBuy () public returns (bool) {
+  function canBuy () public view returns (bool) {
     return totalSales < maxSales;
   }
 
   //function that checks whether a certain address has already had access to the smart contract
-  function hasAccess () public returns (bool) {
+  function hasAccess () public view returns (bool) {
     return sales[msg.sender];
   }
 
