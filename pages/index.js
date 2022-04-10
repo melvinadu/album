@@ -20,6 +20,9 @@ export default function Home() {
   const connect = function () {
     // TODO: setAccounts
     // connect our page to the wallet
+    window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then(setAccounts)
   }
 
   const checkAccess = function () {
