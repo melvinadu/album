@@ -80,7 +80,7 @@ export default function Home() {
       <header className="App-header">
         <Image src={Logo} className="logo" />
 
-        <h1>The debut album from Sasha</h1>
+        <h1>The debut album from Majesty</h1>
         <h2>{totalSales} / 100 sold</h2>
 
         <p>Available in a limited edition, holographic digital format through OA Records.</p>
