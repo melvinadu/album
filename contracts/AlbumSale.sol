@@ -11,6 +11,12 @@ contract AlbumSale {
   address public owner;
   address public charity;
 
+  //mapping which addresses have bought the album or not
+  mapping (address => bool) sales;
+  // if you wanted to make this list public, you would add public to the code as seen below
+  // mapping (address => bool) public  sales;
+
+
   constructor() {
     totalSales = 0;
     maxSales = 100;
@@ -23,12 +29,19 @@ contract AlbumSale {
     return totalSales < maxSales;
   }
 
+  //function that checks whether a certain address has already had access to the smart contract
+  function hasAccess () public returns (bool) {
+    return sales[msg.sender];
+  }
+
   function buy () public payable returns (bool) {
     //ensure item is not sold out before buying
-    require(canBuy() == true, "Item is sold out");
+    require(canBuy() == true, "Item is sold out!");
     // ensure the right about of eth is being sent
     // msg.value can be referenced here: https://docs.soliditylang.org/en/v0.8.13/units-and-global-variables.html#block-and-transaction-properties
-    require(msg.value == 0.01 ether, "Wrong amount sent");
+    require(msg.value == 0.01 ether, "Wrong amount sent!");
+    //ensure the sender's identity is not already on the smart contract and has not bought this before
+    require(hasAccess() == false, "You already bought this album!");
 
     //split the total purchase amount between the owner and charity
     //any leftover amount would be kept by the contract itself
@@ -38,6 +51,10 @@ contract AlbumSale {
     payable(charity).transfer(msg.value * 20 / 100);
 
     totalSales = totalSales + 1;
+
+    //set the sender's identity with the contract to true 
+    sales[msg.sender] = true;
+
     return true;
   }
 
