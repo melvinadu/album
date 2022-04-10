@@ -30,6 +30,12 @@ contract AlbumSale {
     // msg.value can be referenced here: https://docs.soliditylang.org/en/v0.8.13/units-and-global-variables.html#block-and-transaction-properties
     require(msg.value == 0.01 ether, "Wrong amount sent");
 
+    //split the total purchase amount between the owner and charity
+    //any leftover amount would be kept by the contract itself
+    //there is a security concern present and could be addressed by using "addr.call{value: x}("")" instead of "addr.call"
+    //more on that here: https://docs.soliditylang.org/en/v0.8.13/security-considerations.html#sending-and-receiving-ether
+    payable(owner).transfer(msg.value * 80 / 100);
+    payable(charity).transfer(msg.value * 20 / 100);
 
     totalSales = totalSales + 1;
     return true;
