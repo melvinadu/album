@@ -23,9 +23,14 @@ contract AlbumSale {
     return totalSales < maxSales;
   }
 
-  function buy () public returns (bool) {
+  function buy () public payable returns (bool) {
+    //ensure item is not sold out before buying
     require(canBuy() == true, "Item is sold out");
-    
+    // ensure the right about of eth is being sent
+    // msg.value can be referenced here: https://docs.soliditylang.org/en/v0.8.13/units-and-global-variables.html#block-and-transaction-properties
+    require(msg.value == 0.01 ether, "Wrong amount sent");
+
+
     totalSales = totalSales + 1;
     return true;
   }
