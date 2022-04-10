@@ -17,7 +17,10 @@ contract AlbumSale {
 
     owner = 0xdd0001Cc2B6Cb99CA0CB56eFE61B82D8935Ee75F;
     charity = 0x0206dDB656Da973230Bf332d7D34fEafc5A45E3c;
+  }
 
+  function canBuy () public returns (bool) {
+    return totalSales < maxSales;
   }
 
 }
