@@ -24,6 +24,8 @@ contract AlbumSale {
   }
 
   function buy () public returns (bool) {
+    require(canBuy() == true, "Item is sold out");
+    
     totalSales = totalSales + 1;
     return true;
   }
