@@ -23,4 +23,9 @@ contract AlbumSale {
     return totalSales < maxSales;
   }
 
+  function buy () public returns (bool) {
+    totalSales = totalSales + 1;
+    return true;
+  }
+
 }
