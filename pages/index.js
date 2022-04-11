@@ -46,6 +46,19 @@ export default function Home() {
     // TODO: transaction with contract
     // buy this from the contract by sending 0.01 ether
     // then once done, check access and update counts
+    if (accounts.length > 0) {
+      try {
+        //".call" reads information where ".send" writes information
+        const transaction = await contract.methods.buy().send({
+          from: accounts[0],
+          value: web3.utils.toWei("0.01", "ether")
+        })
+      } catch (e) {
+        alert(e)
+      }
+    } else {
+      alert("You need to log in!")
+    }
   }
 
   const download = async function () {
