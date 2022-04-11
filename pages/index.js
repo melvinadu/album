@@ -62,7 +62,7 @@ export default function Home() {
 
         checkAccess()
         fetchCanBuy()
-        
+
       } catch (e) {
         alert(e)
       }
@@ -84,7 +84,8 @@ export default function Home() {
     
         const json = await r.json()
 
-        // window.location.href = json.url
+        //this code is responsible for downloading the file
+        //window.location.href = json.url
       } catch (e) {
         alert("incorrect download url")
       }
