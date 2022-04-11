@@ -67,7 +67,14 @@ export default function Home() {
 
   useEffect(() => {
     // TODO
-    // set up wallet events and initial connection
+    // set up wallet connection on initial load and add event listener for whenever accounts change
+    window.ethereum
+      .request({ method: "eth_accounts" })
+      .then(setAccounts)
+    
+    window.ethereum
+    .on("accountsChanged", setAccounts)
+
   }, [])
 
   useEffect(() => {
